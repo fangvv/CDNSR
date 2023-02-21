@@ -1,0 +1,89 @@
+name: CDNSR_CARN
+use_tb_logger: true
+model: CDNSR
+distortion: sr
+scale: 4
+gpu_ids: [0]
+patch_size: 32
+step: 28
+fix_CLASS_module: true
+fix_SR_module: false
+
+
+#### datasets
+datasets:
+  train:
+    name: DIV2K
+    mode: LQGT
+    dataroot_GT: /path/to/you/project/DIV2K_scale_sub/GT
+    dataroot_LQ: /path/to/you/project/DIV2K_scale_sub/LR
+
+    use_shuffle: true
+    n_workers: 6  # per GPU
+    batch_size: 64
+    GT_size: 128
+    use_flip: true
+    use_rot: true
+    color: RGB
+  val:
+    name: DIV2K10
+    mode: LQGT
+    dataroot_GT: /path/to/you/project/val_10/HR/X4
+    dataroot_LQ: /path/to/you/project/val_10/LR/X4
+
+network_G:
+  which_model_G: classSR_3class_carn
+  in_nc: 3
+  out_nc: 3
+
+#### path
+path:
+  pretrain_proj_head: ~
+  pretrain_model_G: /path/to/you/project/experiments/CDNSR_CARN/models/xxxxxx_G.pth # replace to your path
+  pretrain_model_classifier: ~ 
+  pretrain_model_G_branch1: ~ 
+  pretrain_model_G_branch2: ~ 
+  pretrain_model_G_branch3: ~ 
+  resume_state: ~
+  strict_load: true
+
+#### training settings: learning rate scheme, loss
+train:
+  lr_G: !!float 2e-4
+  lr_scheme: CosineAnnealingLR_Restart
+  beta1: 0.9
+  beta2: 0.99
+  niter: 200000
+  warmup_iter: -1  # no warm up
+  T_period: [500000, 500000]
+  restarts: [500000]
+  restart_weights: [0.05]
+  eta_min: !!float 1e-7
+
+  pixel_criterion: ClassSR_loss
+  l1w: 1000
+  class_loss_w: 0
+  average_loss_w: 0 
+
+  flops_loss_w: 0
+  target_flops: 0.80 
+
+  # kd loss
+  csd_loss_w: 0 
+
+  # constractive loss
+  cs_loss_w: 1
+  neg_num: 6
+
+  # perceptual loss
+  perceptual_loss_w: 0
+
+  kd_l1_loss_w: 0
+
+  manual_seed: 10
+  val_freq: !!float 1000
+
+#### logger
+logger:
+  print_freq: 100
+  save_checkpoint_freq: !!float 1000
