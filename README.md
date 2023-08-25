@@ -6,6 +6,17 @@ This is the source code for our paper: Classification-based Dynamic Network for 
 
 This paper has been published by ICASSP 2023, and can be accessed from [IEEExplore](https://ieeexplore.ieee.org/document/10096521). Due to the 5-page requirement of this conference, we provide a full version of technique report in this repo.
 
+## Citation
+
+    @inproceedings{wang2023classification,
+      title={Classification-Based Dynamic Network for Efficient Super-Resolution},
+      author={Wang, Qi and Fang, Weiwei and Wang, Meng and Cheng, Yusong},
+      booktitle={ICASSP 2023-2023 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+      pages={1--5},
+      year={2023},
+      organization={IEEE}
+    }
+
 ## Required software
 
 PyTorch
