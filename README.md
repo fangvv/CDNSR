@@ -166,6 +166,10 @@ python test_CDNSR.py -opt options/test/test_CDNSR_CARN.yml
 
 > Please make sure datasets are placed under `datasets/` and the `dataroot` fields in the YAML configs are updated accordingly. See [datasets/README.md](datasets/README.md) for the expected directory layout.
 
+## ⭐ Star
+
+**If you find this work useful for your research, please consider giving this repository a ⭐ star. Your support is greatly appreciated!**
+
 ## Citation
 
 If you find CDNSR useful or relevant to your project and research, please kindly cite our paper:
